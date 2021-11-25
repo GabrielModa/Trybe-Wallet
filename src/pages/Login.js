@@ -19,16 +19,17 @@ class Login extends React.Component {
   }
 
   onSubmitLogin(e) {
-    e.preventDefault();
     const { history, dispatchUserLogin } = this.props;
     const { email } = this.state;
 
+    e.preventDefault();
     dispatchUserLogin(email);
     history.push('/carteira');
   }
 
   onInputChange({ target }) {
     const { name, value } = target;
+
     this.setState({
       [name]: value }, () => this.checkValidation());
   }
@@ -45,6 +46,7 @@ class Login extends React.Component {
 
   render() {
     const { buttonDisabled, email, password } = this.state;
+
     return (
       <form onSubmit={ this.onSubmitLogin }>
         <fieldset>
