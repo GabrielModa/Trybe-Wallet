@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import loginUser from '../redux/actions';
+import actionLogin from '../actions';
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   constructor() {
     super();
 
@@ -18,16 +18,17 @@ export default class Login extends React.Component {
     this.onSubmitLogin = this.onSubmitLogin.bind(this);
   }
 
-  onSubmitLogin() {
-    const { history, dispatchSetValue } = this.props;
+  onSubmitLogin(e) {
+    e.preventDefault();
+    const { history, dispatchUserLogin } = this.props;
+    const { email } = this.state;
 
-    dispatchSetValue(...this.state);
+    dispatchUserLogin(email);
     history.push('/carteira');
   }
 
   onInputChange({ target }) {
     const { name, value } = target;
-
     this.setState({
       [name]: value }, () => this.checkValidation());
   }
@@ -44,10 +45,8 @@ export default class Login extends React.Component {
 
   render() {
     const { buttonDisabled, email, password } = this.state;
-    const { dispatchUserLogin } = this.props;
-
     return (
-      <form>
+      <form onSubmit={ this.onSubmitLogin }>
         <fieldset>
 
           <h2>Login:</h2>
@@ -73,7 +72,6 @@ export default class Login extends React.Component {
           <button
             type="submit"
             disabled={ buttonDisabled }
-            onClick={ () => dispatchUserLogin(this.state) }
           >
             Entrar
           </button>
@@ -85,18 +83,17 @@ export default class Login extends React.Component {
 }
 
 Login.propTypes = {
-  dispatchSetValue: PropTypes.any,
-  dispatchUserLogin: PropTypes.any,
+  dispatchUserLogin: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
 };
 
-const mapStateToProps = (state) => ({ email: state.user.state.email });
+const mapStateToProps = (state) => ({ email: state.user.email });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchUserLogin: (login) => dispatch(loginUser(login)),
+  dispatchUserLogin: (payload) => dispatch(actionLogin(payload)),
 }
 );
 
-connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
