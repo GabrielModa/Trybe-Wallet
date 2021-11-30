@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchCurrency } from '../actions';
 import { getCurrencies } from '../services/RequestAPI';
+import Table from './componets/Table';
 
 class Wallet extends React.Component {
   constructor() {
@@ -158,8 +159,7 @@ class Wallet extends React.Component {
               label="Moeda da despesa:"
             >
               {arrayOfCurrencies.map((currencies, index) => (
-                <option key={ index }>{currencies}</option>
-              ))}
+                <option key={ index }>{currencies}</option>))}
             </select>
           </label>
           <label htmlFor="method-input">
@@ -182,6 +182,7 @@ class Wallet extends React.Component {
             Adicionar despesa
           </button>
         </form>
+        <Table />
       </>
     );
   }
