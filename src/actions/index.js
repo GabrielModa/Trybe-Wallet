@@ -1,10 +1,19 @@
 // Coloque aqui suas actions
-export const SET_LOGIN = 'SET_LOGIN';
+import { SET_LOGIN, RECEIVE_CURRENCY } from './actionTypes';
+import { getCurrency } from '../services/RequestAPI';
 
-const actionLogin = (payload) => (
+export const actionLogin = (payload) => (
   {
     type: SET_LOGIN,
     payload,
   });
 
-export default actionLogin;
+export const receiveCurrency = (payload) => ({
+  type: RECEIVE_CURRENCY,
+  payload,
+});
+
+export const fetchCurrency = (payload) => async (dispatch) => {
+  const data = await getCurrency();
+  dispatch(receiveCurrency({ ...payload, exchangeRates: data }));
+};
