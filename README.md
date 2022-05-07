@@ -22,7 +22,7 @@ Você deve desenvolver uma aplicação em React que use Redux como ferramenta de
 Através dessa aplicação, será possível realizar as operações básicas de criação e manipulação de um estado de redux.
 
 1. Clone o repositório
-  * `git clone git@github.com:tryber/sd-015-a-project-trybewallet.git`
+  * `git clone https://github.com/GabrielModa/Trybe-Wallet.git`
   * Entre na pasta do repositório que você acabou de clonar:
     * `cd sd-015-a-project-trybewallet`
 
